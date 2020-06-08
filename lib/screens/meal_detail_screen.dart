@@ -17,7 +17,7 @@ class MealDetailScreen extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.title,
+        style: Theme.of(context).textTheme.headline6,
       ),
     );
   }
@@ -99,106 +99,109 @@ class MealDetailScreen extends StatelessWidget {
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('${selectedMeal.title}'),
-      // ),
-      body: CustomScrollView(slivers: <Widget>[
-        SliverAppBar(
-          expandedHeight: 300,
-          pinned: true,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-              '${selectedMeal.title}',
-              overflow: TextOverflow.fade,
-            ),
-            background: Image.network(
-              selectedMeal.imageUrl,
-              height: 360,
-              width: double.infinity,
-              fit: BoxFit.cover,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                '${selectedMeal.title}',
+                overflow: TextOverflow.fade,
+              ),
+              background: Image.network(
+                selectedMeal.imageUrl,
+                height: 360,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Column(children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black12),
-                  ),
-                ),
-                padding: EdgeInsets.all(20),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(Icons.schedule),
-                        SizedBox(width: 6),
-                        Text('${selectedMeal.duration} min'),
-                      ]),
-                      Row(children: <Widget>[
-                        Icon(Icons.work),
-                        SizedBox(width: 6),
-                        Text(complexityText(selectedMeal)),
-                      ]),
-                      Row(children: <Widget>[
-                        Icon(Icons.attach_money),
-                        SizedBox(width: 6),
-                        Text(affordabilityText(selectedMeal)),
-                      ]),
-                    ]),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Row(children: <Widget>[
-                  buildChip('Gluten Free', selectedMeal.isGlutenFree),
-                  buildChip('Lactose Free', selectedMeal.isLactoseFree),
-                  buildChip('Vegetarian', selectedMeal.isVegetarian),
-                  buildChip('Vegan', selectedMeal.isVegan),
-                ]),
-              ),
-              buildSectionTitle(context, 'Ingredients'),
-              buildContainer(
-                height: 200,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(top: 0),
-                  itemBuilder: (context, index) => Card(
-                    color: Theme.of(context).accentColor,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 10),
-                      child: Text(selectedMeal.ingredients[index]),
-                    ),
-                  ),
-                  itemCount: selectedMeal.ingredients.length,
-                ),
-              ),
-              buildSectionTitle(context, 'Steps'),
-              buildContainer(
-                height: 350,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(top: 0),
-                  itemBuilder: (context, index) => Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: CircleAvatar(
-                          child: Text('# ${(index + 1)}'),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Column(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          bottom: BorderSide(color: Colors.black12),
                         ),
-                        title: Text(selectedMeal.steps[index]),
                       ),
-                      Divider(),
-                    ],
-                  ),
-                  itemCount: selectedMeal.steps.length,
+                      padding: EdgeInsets.all(20),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                              Icon(Icons.schedule),
+                              SizedBox(width: 6),
+                              Text('${selectedMeal.duration} min'),
+                            ]),
+                            Row(children: <Widget>[
+                              Icon(Icons.work),
+                              SizedBox(width: 6),
+                              Text(complexityText(selectedMeal)),
+                            ]),
+                            Row(children: <Widget>[
+                              Icon(Icons.attach_money),
+                              SizedBox(width: 6),
+                              Text(affordabilityText(selectedMeal)),
+                            ]),
+                          ]),
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.symmetric(horizontal: 5),
+                      child: Row(children: <Widget>[
+                        buildChip('Gluten Free', selectedMeal.isGlutenFree),
+                        buildChip('Lactose Free', selectedMeal.isLactoseFree),
+                        buildChip('Vegetarian', selectedMeal.isVegetarian),
+                        buildChip('Vegan', selectedMeal.isVegan),
+                      ]),
+                    ),
+                    buildSectionTitle(context, 'Ingredients'),
+                    buildContainer(
+                      height: 200,
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(top: 0),
+                        itemBuilder: (context, index) => Card(
+                          color: Theme.of(context).accentColor,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: Text(selectedMeal.ingredients[index]),
+                          ),
+                        ),
+                        itemCount: selectedMeal.ingredients.length,
+                      ),
+                    ),
+                    buildSectionTitle(context, 'Steps'),
+                    buildContainer(
+                      height: 350,
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(top: 0),
+                        itemBuilder: (context, index) => Column(
+                          children: <Widget>[
+                            ListTile(
+                              leading: CircleAvatar(
+                                child: Text('# ${(index + 1)}'),
+                              ),
+                              title: Text(selectedMeal.steps[index]),
+                            ),
+                            Divider(),
+                          ],
+                        ),
+                        itemCount: selectedMeal.steps.length,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ]),
-          ]),
-        ),
-      ]),
+              ],
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: isFavorite(mealId)
             ? Icon(
